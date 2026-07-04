@@ -1,58 +1,25 @@
-import { DeployButton } from "@/components/deploy-button";
-import { EnvVarWarning } from "@/components/env-var-warning";
-import { AuthButton } from "@/components/auth-button";
-import { Hero } from "@/components/hero";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-steps";
-import { SignUpUserSteps } from "@/components/tutorial/sign-up-user-steps";
-import { hasEnvVars } from "@/lib/utils";
-import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense } from 'react';
+import { Hero } from '@/components/hero';
+import { Navbar } from '@/components/Navbar';
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center">
-      <div className="flex-1 w-full flex flex-col gap-20 items-center">
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-            <div className="flex gap-5 items-center font-semibold">
-              <Link href={"/"}>Next.js Supabase Starter</Link>
-              <div className="flex items-center gap-2">
-                <DeployButton />
-              </div>
-            </div>
-            {!hasEnvVars ? (
-              <EnvVarWarning />
-            ) : (
-              <Suspense>
-                <AuthButton />
-              </Suspense>
-            )}
-          </div>
-        </nav>
-        <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
-          <Hero />
-          <main className="flex-1 flex flex-col gap-6 px-4">
-            <h2 className="font-medium text-xl mb-4">Next steps</h2>
-            {hasEnvVars ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-          </main>
+    <main className="min-h-screen bg-[#F9F7F5] text-[#3E2B1E]">
+      <Navbar />
+      <Suspense fallback={<div className="h-96 w-full animate-pulse bg-neutral-200" />}>
+        <Hero />
+      </Suspense>
+      <section className="py-24 px-8 max-w-5xl mx-auto text-center">
+        <h2 className="text-4xl font-serif mb-6">Your quiet corner in the heart of Cardiff.</h2>
+        <p className="text-lg leading-relaxed max-w-2xl mx-auto mb-12">
+          Escape the bustle and settle in. Whether you’re finishing a project or catching up with an old friend, 
+          Cosy Coffi Cwtch Corner is your sanctuary. Premium beans, local bakes, and the perfect nook waiting just for you.
+        </p>
+        <div className="flex gap-4 justify-center">
+          <a href="/booking" className="bg-[#5D4432] text-white px-8 py-3 rounded-md hover:opacity-90 transition">Book your nook</a>
+          <a href="/menu" className="border border-[#5D4432] text-[#5D4432] px-8 py-3 rounded-md hover:bg-[#E9E3DD] transition">See the menu</a>
         </div>
-
-        <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-          <p>
-            Powered by{" "}
-            <a
-              href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-              target="_blank"
-              className="font-bold hover:underline"
-              rel="noreferrer"
-            >
-              Supabase
-            </a>
-          </p>
-          <ThemeSwitcher />
-        </footer>
-      </div>
+      </section>
     </main>
   );
 }
